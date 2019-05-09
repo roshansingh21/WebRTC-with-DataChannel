@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>WebRTC</title>
+        <link href="style.css" rel="stylesheet" type="text/css"/>
+    </head>
+
+    <body>
+        <div id="login">
+            <label for="username">Login</label>
+            <input id="username" placeholder="Login" required="" autofocus="">
+            <button id="login">Login</button>
+        </div>
+
+        <div id="call">
+            <video id="local" autoplay></video>
+            <video id="remote" autoplay></video>
+
+            <div>
+                <input id="username-to-call" placeholder="Username to call"/>
+                <button id="call">Call</button>
+                <button id="close-call">Close call</button>
+            </div>
+        </div>
+
+        <div>
+            <div id="send">
+                <h2>Data Channel</h2>
+                <textarea
+                    id="dataChannelSend"
+                    disabled
+                    placeholder="Enter some text, then press Send.">
+                </textarea>
+            </div>
+            <div id="button">
+              <button id="sendButton" disabled>Send</button>
+            </div>
+        </div>
+
+        <div id="receive">
+          <h2>Receive</h2>
+          <textarea id="dataChannelReceive" disabled></textarea>
+      </div>
+    </body>
+    <script src="client.js"></script>
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+</html>
