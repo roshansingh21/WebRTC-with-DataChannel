@@ -1,4 +1,4 @@
-const ws = new WebSocket('ws://192.168.0.111:8080')
+const ws = new WebSocket('ws://192.168.0.127:8080')
 
 ws.onopen = () => {
   console.log('Connected to the signaling server')
@@ -40,11 +40,27 @@ let otherUsername = null
 let sendChannel;
 let receiveChannel;
 
-const dataChannelSend = document.querySelector('textarea#dataChannelSend');
+// const dataChannelSend = document.querySelector('textarea#dataChannelSend');
 const dataChannelReceive = document.querySelector('textarea#dataChannelReceive');
 const sendButton = document.querySelector('button#sendButton');
+const bpButton = document.querySelector('#bpDevice');
+const pulseButton = document.querySelector('#pulseDevice');
+const tempButton = document.querySelector('#tempDevice');
+const sugarButton = document.querySelector('#sugarDevice');
+const stethButton = document.querySelector('#stethDevice');
+const ecgButton = document.querySelector('#ecgDevice');
+const torchButton = document.querySelector('#torch');
+const cancleButton = document.querySelector('#cancel');
 
-sendButton.onclick = sendData;
+//sendButton.onclick = sendData;
+bpButton.onclick = sendBPCommand;
+pulseButton.onclick = sendPulseCommand;
+tempButton.onclick = sendTempCommand;
+sugarButton.onclick = sendSugarCommand;
+stethButton.onclick = sendStethCommand;
+ecgButton.onclick = sendECGCommand;
+torchButton.onclick = sendTorchCommand;
+cancleButton.onclick = sendCancleCommand;
 
 function disableSendButton() {
   sendButton.disabled = true;
@@ -106,7 +122,7 @@ const handleLogin = async success => {
     connection.onaddstream = event => {
       document.querySelector('video#remote').srcObject = event.stream
     }
-    onSendChannelStateChange();
+    // onSendChannelStateChange();
     connection.ondatachannel = receiveChannelCallback;
 
     connection.onicecandidate = event => {
@@ -172,11 +188,60 @@ const handleCandidate = candidate => {
   connection.addIceCandidate(new RTCIceCandidate(candidate))
 }
 
-function sendData() {
-  const data = dataChannelSend.value;
+// function sendData() {
+//   const data = dataChannelSend.value;
+//   sendChannel.send(data);
+//   console.log('Sent Data: ' + data);
+// }
+
+function sendBPCommand() {
+  const data = 'b';
   sendChannel.send(data);
   console.log('Sent Data: ' + data);
 }
+
+function sendPulseCommand() {
+  const data = 'p';
+  sendChannel.send(data);
+  console.log('Sent Data: ' + data);
+}
+
+function sendSugarCommand() {
+  const data = 'g';
+  sendChannel.send(data);
+  console.log('Sent Data: ' + data);
+}
+
+function sendStethCommand() {
+  const data = 's';
+  sendChannel.send(data);
+  console.log('Sent Data: ' + data);
+}
+
+function sendECGCommand() {
+  const data = 'e';
+  sendChannel.send(data);
+  console.log('Sent Data: ' + data);
+}
+
+function sendTempCommand() {
+  const data = 'm';
+  sendChannel.send(data);
+  console.log('Sent Data: ' + data);
+}
+
+function sendTorchCommand() {
+  const data = 't';
+  sendChannel.send(data);
+  console.log('Sent Data: ' + data);
+}
+
+function sendCancleCommand() {
+  const data = 'x';
+  sendChannel.send(data);
+  console.log('Sent Data: ' + data);
+}
+
 
 document.querySelector('button#close-call').addEventListener('click', () => {
   sendMessage({
@@ -206,11 +271,11 @@ function onReceiveMessageCallback(event) {
   dataChannelReceive.value = event.data;
 }
 
-function onSendChannelStateChange() {
-    dataChannelSend.disabled = false;
-    dataChannelSend.focus();
-    sendButton.disabled = false;
-}
+// function onSendChannelStateChange() {
+//     dataChannelSend.disabled = false;
+//     dataChannelSend.focus();
+//     sendButton.disabled = false;
+// }
 
 function onReceiveChannelStateChange() {
   const readyState = receiveChannel.readyState;
